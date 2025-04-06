@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}ℹ️ About{% endblock %}
+
+{% block topbar_title %}
+<h3>ℹ️ About This App</h3>
+{% endblock %}
+
+{% block content %}
+<div class="container px-0">  <!-- ✅ Added container with px-0 to match layout -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Secure Password Manager</h5>
+            <p class="card-text">
+                This secure password manager helps users generate and store strong, complex passwords. It ensures secure access using session-based authentication for login and JWT protection for password retrieval.
+            </p>
+            <p><strong>Features:</strong></p>
+            <ul>
+                <li>🔐 Secure login with session management</li>
+                <li>🔑 Strong password generator with customizable options</li>
+                <li>🧠 Easy password retrieval by name</li>
+                <li>🛡️ Encrypted password storage using hashing</li>
+                <li>📁 Organized password categories and naming</li>
+            </ul>
+
+            <hr>
+
+            <h5 class="mt-4">🚀 Future Releases</h5>
+            <ul>
+                <li>📱 Forget password feature</li>
+                <li>📤 Password sharing with trusted contacts</li>
+                <li>🕵️‍♂️ Password breach check and alerts</li>
+                <li>🔁 Password rotation reminders</li>
+                <li>🧩 Chrome/Firefox browser extension</li>
+            </ul>
+
+            <p class="mt-4 text-muted">© 2025 Secure Password Manager</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

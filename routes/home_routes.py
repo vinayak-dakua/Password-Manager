@@ -8,3 +8,11 @@ def dashboard():
         return redirect(url_for('auth.auth_screen'))
 
     return render_template('home.html', user=session.get('name'), email=session.get('email'))
+
+@home_bp.route('/help')
+def help():
+    return render_template('help.html')
+
+@home_bp.route('/about')
+def about():
+    return render_template('about.html')

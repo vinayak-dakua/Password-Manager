@@ -17,7 +17,15 @@ def create_app():
     jwt.init_app(app)
 
     with app.app_context():
-        from models import user, password  # Import models so they get registered
-        db.create_all()
+        try:
+            from models import user, password  # Import models
+            db.create_all()
+            print("✅ Tables created successfully in Supabase!")
+        except Exception as e:
+            print("❌ Error while creating tables:", e)
 
     return app
+
+# Run app creation directly
+if __name__ == "__main__":
+    create_app()

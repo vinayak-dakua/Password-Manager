@@ -10,6 +10,7 @@ from models.db import db
 from werkzeug.security import check_password_hash
 import random
 import string
+from flask import jsonify
 
 
 auth_bp = Blueprint('auth', __name__)
@@ -131,3 +132,12 @@ def reset_password():
 
     flash("Password reset successful. Please log in.", "success")
     return redirect(url_for('auth.auth_screen'))
+
+
+
+@auth_bp.route('/refresh-captcha')
+def refresh_captcha():
+    new_captcha = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+    session['captcha'] = new_captcha
+    return jsonify({'captcha': new_captcha})
+

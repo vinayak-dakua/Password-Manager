@@ -1,3 +1,6 @@
+import os
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+import base64
 from flask import Blueprint, render_template, session, redirect, url_for
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 import random
@@ -6,7 +9,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from models.db import db
 from models.password import Password
 from flask_jwt_extended import jwt_required
-
+from models.encryption import encrypt_password, decrypt_password
 
 password_bp = Blueprint('password', __name__)
 
@@ -31,6 +34,12 @@ def generate_password():
             flash("Please select at least one character type (lowercase, uppercase, numbers, special).", "warning")
             return redirect(url_for('password.generate_password'))
 
+        # ✅ Check for duplicate password name for the same user
+        existing_password = Password.query.filter_by(user_id=session['user_id'], password_name=name).first()
+        if existing_password:
+            flash("This password name already exists. Please choose a unique name.", "danger")
+            return redirect(url_for('password.generate_password'))
+
         characters = ''
         if use_lowercase:
             characters += string.ascii_lowercase
@@ -43,11 +52,14 @@ def generate_password():
 
         generated_password = ''.join(random.choice(characters) for _ in range(length))
 
+        #encrypted_password
+        encrypted_password = encrypt_password(generated_password)
         new_password = Password(
             user_id=session['user_id'],
             password_name=name,
-            generated_password=generated_password
+            generated_password=encrypted_password
         )
+
         db.session.add(new_password)
         db.session.commit()
 
@@ -69,7 +81,11 @@ def view_password():
         password_entry = Password.query.filter_by(user_id=user_id, password_name=password_name).first()
 
         if password_entry:
-            return render_template('view_password.html', password=password_entry.generated_password, name=password_name)
+            # To decrypt
+            decrypted_password = decrypt_password(password_entry.generated_password)
+            return render_template('view_password.html', password=decrypted_password, name=password_name)
+
+            # return render_template('view_password.html', password=password_entry.generated_password, name=password_name)
         else:
             flash("Password not found.", "danger")
             return redirect(url_for('password.view_password'))

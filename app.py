@@ -8,6 +8,9 @@ from routes.auth_routes import auth_bp
 from routes.home_routes import home_bp
 from routes.password_routes import password_bp
 from routes.support_routes import support_bp
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = Flask(__name__)
 app.config.from_object(Config)

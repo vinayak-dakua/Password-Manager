@@ -3,45 +3,20 @@
 {% block title %}Home - Password Manager{% endblock %}
 
 {% block topbar_title %}
-
 <div class="user-info">
     Welcome, {{ user }} ({{ email }})
 </div>
 {% endblock %}
 
 {% block content %}
-<h2 class="mb-4">🏠 Home</h2>
+<h2 class="mb-4 animated-welcome">🏠 Home</h2>
 
 <div class="tiles d-flex gap-4 justify-content-center mt-5">
-    <a href="{{ url_for('password.generate_password') }}" class="tile text-dark text-decoration-none">
+    <a href="{{ url_for('password.generate_password') }}" class="tile text-dark text-decoration-none slide-tile">
         🔐 Generate Password
     </a>
-    <a href="{{ url_for('password.view_password') }}" class="tile text-dark text-decoration-none">
+    <a href="{{ url_for('password.view_password') }}" class="tile text-dark text-decoration-none slide-tile">
         🔍 View Saved Password
     </a>
 </div>
-
-<style>
-    .tiles .tile {
-        width: 280px;
-        height: 160px;
-        background-color: #ffffff;
-        border: 1px solid #ced4da;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-weight: bold;
-        font-size: 18px;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .tiles .tile:hover {
-        background-color: #e9ecef;
-        transform: scale(1.07);
-    }
-</style>
 {% endblock %}

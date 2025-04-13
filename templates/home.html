@@ -10,13 +10,36 @@
 
 {% block content %}
 <h2 class="mb-4 animated-welcome">🏠 Home</h2>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="row tiles gap-4">
+        <!-- Generate Password Tile -->
+        <div class="col flip-tile">
+            <a href="/generate-password" class="tile-link">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        Generate Password
+                    </div>
+                    <div class="flip-back">
+                        Create secure passwords with full customization
+                    </div>
+                </div>
+            </a>
+        </div>
 
-<div class="tiles d-flex gap-4 justify-content-center mt-5">
-    <a href="{{ url_for('password.generate_password') }}" class="tile text-dark text-decoration-none slide-tile">
-        🔐 Generate Password
-    </a>
-    <a href="{{ url_for('password.view_password') }}" class="tile text-dark text-decoration-none slide-tile">
-        🔍 View Saved Password
-    </a>
+        <!-- View Saved Password Tile -->
+        <div class="col flip-tile">
+            <a href="/view-password" class="tile-link">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        View Saved Password
+                    </div>
+                    <div class="flip-back">
+                        Access your stored passwords securely
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
